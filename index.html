@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>币安 OrderFlow 可视化</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- 使用ESM版本的React -->
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18",
+        "react-dom/client": "https://esm.sh/react-dom@18/client",
+        "axios": "https://esm.sh/axios",
+        "lightweight-charts": "https://esm.sh/lightweight-charts"
+      }
+    }
+  </script>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- 使用ES模块 -->
+<script type="module" src="app.js"></script>
+</body>
+</html>

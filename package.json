@@ -1,0 +1,24 @@
+{
+  "name": "orderflow",
+  "version": "1.0.0",
+  "description": "订单流动性可视化，主要是主动买单，主动卖单",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "npx http-server -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/someview/orderflow.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/someview/orderflow/issues"
+  },
+  "homepage": "https://github.com/someview/orderflow#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
