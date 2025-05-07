@@ -1,60 +1,327 @@
+:root {
+    --primary-bg: #121212;
+    --secondary-bg: #1a1a2e;
+    --card-bg: #252a41;
+    --panel-bg: #252a3a;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border-color: #383e4e;
+    --buy-color: #26a69a;
+    --sell-color: #ef5350;
+    --aggregate-color: #bb86fc;
+    --news-color: #90caf9;
+    --whale-color: #ffb74d;
+    --timeline-color: #4a5568;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
 }
 
 .app {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
 
 header {
     margin-bottom: 30px;
-}
-
-h1 {
     text-align: center;
 }
 
+h1, h2, h3 {
+    margin-top: 0;
+}
+
 main {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 20px;
-}
-
-.chart-container {
-    background-color: #1e222d;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.chart-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    flex-direction: column;
 }
 
-.chart {
-    height: 500px;
-    width: 100%;
+/* 分析容器 */
+.analysis-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
+    height: 80vh;
 }
 
-select {
-    background-color: #2a2e39;
-    color: #d1d4dc;
-    border: 1px solid #4a4f57;
-    padding: 8px 12px;
-    border-radius: 4px;
+/* 控制面板 */
+.control-panel {
+    background-color: var(--panel-bg);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.date-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date-selector label {
     font-size: 14px;
+    font-weight: 500;
+    margin-top: 8px;
 }
 
-select:focus {
-    outline: none;
-    border-color: #2196f3;
+.date-selector input {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    padding: 8px;
+}
+
+.symbol-selector h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.symbol-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.symbol-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.05);
+    user-select: none;
+}
+
+.symbol-toggle.active {
+    background-color: rgba(33, 150, 243, 0.2);
+    color: #90caf9;
+}
+
+.symbol-toggle input {
+    margin: 0;
+}
+
+.action-buttons {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-buttons button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.action-buttons button:hover {
+    background-color: #303f9f;
+}
+
+.action-buttons button:disabled {
+    background-color: #757575;
+    cursor: not-allowed;
+}
+
+/* 时间轴容器 */
+.timeline-container {
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.symbol-headers {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--panel-bg);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.symbol-header {
+    text-align: center;
+    font-weight: 600;
+    padding: 0 10px;
+}
+
+.timeline {
+    flex: 1;
+    position: relative;
+    padding: 20px;
+    overflow-y: auto;
+    min-height: 500px;
+}
+
+.vertical-timeline {
+    position: absolute;
+    left: 110px; /* 调整以匹配时间标签宽度 */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--timeline-color);
+}
+
+.timeline-event {
+    position: absolute;
+    left: 120px; /* 时间标签宽度 + 一些间距 */
+    right: 20px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.event-time {
+    position: absolute;
+    left: -110px;
+    width: 100px;
+    text-align: right;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding-right: 10px;
+}
+
+.event-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.buy-icon {
+    background-color: var(--buy-color);
+}
+
+.sell-icon {
+    background-color: var(--sell-color);
+}
+
+.aggregate-icon {
+    background-color: var(--aggregate-color);
+}
+
+.event-icon-high {
+    background-color: var(--sell-color);
+}
+
+.event-icon-medium {
+    background-color: var(--news-color);
+}
+
+.event-icon-low {
+    background-color: var(--text-secondary);
+}
+
+.event-content {
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.trade-event {
+    max-width: 250px;
+}
+
+.aggregate-event {
+    background-color: rgba(187, 134, 252, 0.1);
+    border: 1px solid var(--aggregate-color);
+}
+
+.aggregate-arrow {
+    margin-top: 8px;
+    font-weight: 500;
+    color: var(--aggregate-color);
+}
+
+.general-event {
+    width: 300px;
+}
+
+.news-event {
+    background-color: rgba(144, 202, 249, 0.1);
+    border: 1px solid var(--news-color);
+}
+
+.whale-event {
+    background-color: rgba(255, 183, 77, 0.1);
+    border: 1px solid var(--whale-color);
+}
+
+.event-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.event-importance {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.aggregate-connector {
+    position: absolute;
+    height: 2px;
+    background-color: var(--aggregate-color);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.loading-indicator, .no-data {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* 自定义滚动条 */
+.timeline::-webkit-scrollbar {
+    width: 8px;
+}
+
+.timeline::-webkit-scrollbar-track {
+    background: var(--primary-bg);
+}
+
+.timeline::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+.timeline::-webkit-scrollbar-thumb:hover {
+    background-color: #4a5568;
 }
