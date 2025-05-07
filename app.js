@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import OrderFlowChart from './components/OrderFlowChart.js';
-import TradeHistoryTable from './components/TradeHistoryTable.js';
 
-function App() {
+const App = () => {
     return React.createElement(
         'div',
         { className: 'app' },
@@ -11,11 +10,20 @@ function App() {
             React.createElement('h1', null, '币安 OrderFlow 可视化')
         ),
         React.createElement('main', null,
-            React.createElement(OrderFlowChart, null),
-            React.createElement(TradeHistoryTable, null)
+            React.createElement(OrderFlowChart)
         )
     );
-}
+};
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(React.createElement(App));
+// 等待DOM加载完成
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const container = document.getElementById('root');
+        const root = createRoot(container);
+        root.render(React.createElement(App));
+        console.log("React应用已加载");
+    } catch (err) {
+        console.error("渲染出错:", err);
+        document.getElementById('root').textContent = "加载错误: " + err.message;
+    }
+});

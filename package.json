@@ -5,7 +5,7 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
-    "start": "npx http-server -o"
+    "start": "npx http-server -c-1 -o"
   },
   "repository": {
     "type": "git",
